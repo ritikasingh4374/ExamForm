@@ -12,7 +12,7 @@ export default function TeacherLogin() {
     try {
       const res = await axios.post('http://localhost:5000/api/teacher/login', { username, password });
       alert(res.data.message);
-      navigate('/add-student'); 
+      navigate('/teacher-dashboard'); 
     } catch (err) {
       alert('Login failed');
     }
