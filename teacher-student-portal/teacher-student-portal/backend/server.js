@@ -155,48 +155,25 @@ app.post('/api/send-approval-email', async (req, res) => {
   const doc = new PDFDocument({ margin: 50 });
   doc.pipe(fs.createWriteStream(pdfPath));
 
+  // PDF Title
   doc.fontSize(18).text('Exam Form Approval', { align: 'center' });
   doc.moveDown(2);
 
-  const tableTop = 150;
-  const rowHeight = 30;
-  const col1X = 50;
-  const col1Width = 150;
-  const col2X = col1X + col1Width;
-  const col2Width = 300;
-
-  const rows = [
-    ['Roll Number', roll_number || 'N/A'],
-    ['Registration Number', registration_number || 'N/A'],
-    ['Exam Name', exam_name || 'N/A'],
-    ['Semester', semester || 'N/A'],
-    ['Department', department || 'N/A'],
-    ['Exam Type', exam_type || 'N/A'],
-    ['Subjects', Array.isArray(subjects) ? subjects.join(', ') : 'N/A'],
-  ];
-
-  // Draw Header
-  doc.fontSize(12)
-    .text('Field', col1X + 5, tableTop + 8)
-    .text('Value', col2X + 5, tableTop + 8);
-
-  doc.lineWidth(1)
-    .moveTo(col1X, tableTop)
-    .lineTo(col1X + col1Width + col2Width, tableTop)
-    .stroke();
-
-  // Draw Rows
-  rows.forEach((row, i) => {
-    const y = tableTop + (i + 1) * rowHeight;
-
-    // Draw borders
-    doc.rect(col1X, y, col1Width, rowHeight).stroke();
-    doc.rect(col2X, y, col2Width, rowHeight).stroke();
-
-    // Insert text with vertical padding
-    doc.text(row[0], col1X + 5, y + 8, { width: col1Width - 10 });
-    doc.text(row[1], col2X + 5, y + 8, { width: col2Width - 10 });
-  });
+  // Body Content
+  doc.fontSize(12);
+  doc.text(`Roll Number: ${roll_number || 'N/A'}`);
+  doc.moveDown(0.5);
+  doc.text(`Registration Number: ${registration_number || 'N/A'}`);
+  doc.moveDown(0.5);
+  doc.text(`Exam Name: ${exam_name || 'N/A'}`);
+  doc.moveDown(0.5);
+  doc.text(`Semester: ${semester || 'N/A'}`);
+  doc.moveDown(0.5);
+  doc.text(`Department: ${department || 'N/A'}`);
+  doc.moveDown(0.5);
+  doc.text(`Exam Type: ${exam_type || 'N/A'}`);
+  doc.moveDown(0.5);
+  doc.text(`Subjects: ${Array.isArray(subjects) ? subjects.join(', ') : 'N/A'}`);
 
   doc.end();
 
