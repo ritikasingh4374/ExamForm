@@ -13,11 +13,12 @@ app.use(bodyParser.json());
 
 // Create a PostgreSQL pool
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'postgres',
-  password: '',
-  port: 5432
+  user: process.env.DB_USER || 'postgres',
+  host: process.env.DB_HOST || 'localhost',
+  database: process.env.DB_NAME || 'postgres',
+  password: process.env.DB_PASSWORD || '',
+  port: process.env.DB_PORT || 5432,
+  connectionString: process.env.DATABASE_URL  // Render provides this
 });
 
 // Setup Gmail details (hardcoded for this example, you can move to environment variables)
