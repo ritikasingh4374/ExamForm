@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../apiConfig';
 
 export default function TeacherRegister() {
   const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ export default function TeacherRegister() {
 
   const handleRegister = async () => {
     try {
-      await axios.post('http://localhost:5000/api/teacher/register', { username, password });
+      await axios.post(`${API_BASE_URL}/api/teacher/register`, { username, password });
       alert('Teacher registered successfully!');
     } catch (err) {
       alert('Registration failed');

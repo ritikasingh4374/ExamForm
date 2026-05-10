@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import API_BASE_URL from '../apiConfig';
 
 export default function ExamForm() {
   const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ export default function ExamForm() {
 
   const handleSubmit = async () => {
     try {
-      await axios.post('http://localhost:5000/api/exam-form', formData, {
+      await axios.post(`${API_BASE_URL}/api/exam-form`, formData, {
         headers: { 'Content-Type': 'application/json' },
       });
       alert('✅ Exam form submitted successfully!');

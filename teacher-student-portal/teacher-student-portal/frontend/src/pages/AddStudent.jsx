@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../apiConfig';
 
 export default function AddStudent() {
   const [formData, setFormData] = useState({
@@ -18,7 +19,7 @@ export default function AddStudent() {
     e.preventDefault(); // Prevent page refresh on form submit
     try {
       console.log('Submitting student:', formData);
-      await axios.post('http://localhost:5000/api/students', formData);
+      await axios.post(`${API_BASE_URL}/api/students`, formData);
       alert('✅ Student added successfully!');
       setFormData({ name: '', roll_number: '', dob: '', course: '', year: '' }); // Clear form
     } catch (err) {

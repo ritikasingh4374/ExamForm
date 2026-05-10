@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import API_BASE_URL from '../apiConfig';
 
 export default function SubmittedForms() {
   const [forms, setForms] = useState([]);
@@ -8,7 +9,7 @@ export default function SubmittedForms() {
   useEffect(() => {
     const fetchForms = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/submitted-forms');
+        const response = await axios.get(`${API_BASE_URL}/api/submitted-forms`);
         const formsWithApproval = response.data.map(form => ({
           ...form,
           approved: false  // Initial state
@@ -31,7 +32,7 @@ export default function SubmittedForms() {
     }
   
     try {
-      await axios.post('http://localhost:5000/api/send-approval-email', {
+      await axios.post(`${API_BASE_URL}/api/send-approval-email`, {
         email: approvedForm.gmail,
         name: approvedForm.name || "Student", // Add name if available
         exam_name: approvedForm.exam_name,

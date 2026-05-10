@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../apiConfig';
 
 export default function StudentLogin() {
   const [roll_number, setRollNumber] = useState('');
@@ -15,7 +16,7 @@ export default function StudentLogin() {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/student/login', { roll_number, dob });
+      const res = await axios.post(`${API_BASE_URL}/api/student/login`, { roll_number, dob });
       console.log(res.data);  // Log the response to check the data
 
       alert(`Welcome, ${res.data.student.name}`);

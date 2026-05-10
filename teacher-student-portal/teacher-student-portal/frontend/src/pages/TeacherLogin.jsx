@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import API_BASE_URL from '../apiConfig';
 
 export default function TeacherLogin() {
   const [username, setUsername] = useState('');
@@ -10,7 +10,7 @@ export default function TeacherLogin() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/teacher/login', { username, password });
+      const res = await axios.post(`${API_BASE_URL}/api/teacher/login`, { username, password });
       alert(res.data.message);
       navigate('/teacher-dashboard'); 
     } catch (err) {
